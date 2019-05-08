@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<ul>
+    @foreach (var x in User.Claims)
+    {
+        <li>@x.Subject - @x.Value</li>
+    }
+</ul>
+
+@(await Html.RenderComponentAsync<Test>())
+
+@section Scripts{ 
+    <script src="~/_framework/blazor.server.js"></script>
+}
