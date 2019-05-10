@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Net.Http;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
@@ -5,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -13,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication6.Extensions.Auth;
 using WebApplication6.Helpers.Auth;
+using WebApplication6.Services;
 
 namespace WebApplication6
 {
@@ -71,6 +76,7 @@ namespace WebApplication6
 
             services.AddSingleton<IGraphAuthProvider, GraphAuthProvider>();
             services.AddTransient<IGraphSdkHelper, GraphSdkHelper>();
+            services.AddTransient<ITestDataService, TestDataService>();
 
             _services = services;
         }
@@ -90,7 +96,7 @@ namespace WebApplication6
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            
 
             app.UseCookiePolicy();
 
@@ -125,6 +131,8 @@ namespace WebApplication6
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

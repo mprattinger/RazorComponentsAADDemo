@@ -68,7 +68,7 @@ namespace WebApplication6.Helpers.Auth
 
                     // Check whether the login is from the MSA tenant. 
                     // The sample uses this attribute to disable UI buttons for unsupported operations when the user is logged in with an MSA account.
-                    var currentTenantId = context.Principal.FindFirst(Startup.TenantIdType).Value;
+                    //var currentTenantId = context.Principal.FindFirst(Startup.TenantIdType).Value;
 
                     context.HandleCodeRedemption(result.AccessToken, result.IdToken);
                 },

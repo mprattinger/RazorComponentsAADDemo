@@ -1,16 +1,47 @@
 ﻿@page "/"
+@using Models
+@using Services
+@inject ITestDataService testDataService
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app. @currentCount
 
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>@data.Name</td>
+    </tr>
+    <tr>
+        <td>Abteilung:</td>
+        <td>@data.Department</td>
+    </tr>
+    <tr>
+        <td>Saldo:</td>
+        <td>@data.Saldo</td>
+    </tr>
+</table>
+
 <button class="btn btn-primary" onclick="@IncrementCount">Click me</button>
+
+<button class="btn btn-primary" onclick="@LoadData">Load Data</button>
 
 @functions {
     int currentCount = 0;
 
+    TestData data = new Models.TestData();
+
     void IncrementCount()
     {
         currentCount++;
+    }
+
+    async Task LoadData()
+    {
+        //data = await httpClient.GetJsonAsync<Models.TestData>("/api/testapi");
+
+        data = await testDataService.GetTestDataAsync();
+       
+
     }
 }
